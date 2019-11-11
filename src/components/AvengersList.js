@@ -17,17 +17,30 @@ const SJumbotron = styled(Jumbotron)`
   padding: 50px;
 `;
 
-function AvengersList() {
+const Avgrs = (props) => {
 
-  const [avg, setAvg] = useState([]);
   const [select, setSelect] = useState({});
+  const { id } = props.match.params;
+
+  useEffect(() => {
+      setSelect(props.avg.find(avg => avg.id == id));
+  }, [id])
+
+  if(!select) {
+    return <h3>Loading..</h3>
+  }
+  return (
+    <AvengerCard avg={select} />
+  )
+} 
+
+function AvengersList() {
+  const [avg, setAvg] = useState([]);
 
   useEffect(() => {
     setAvg(avengers);
 
   }, []);
-
-
 
   return (
     <>
@@ -63,14 +76,7 @@ function AvengersList() {
             <Button><Link to='/avengers/9'>Dr Strange</Link></Button>
           </ButtonGroup>
         </ListGroup>
-        <Route path='/avengers/:id' render={props => {
-          const { id } = props.match.params;
-          const selectedAvg = avengers.find(avg => avg.id == id);
-          console.log(selectedAvg);
-          return (
-            <AvengerCard avg={selectedAvg} />
-          )
-        }} />
+        <Route path='/avengers/:id' render={(props) => <Avgrs match={props.match} history={props.history} location={props.location} avg={avg} />} />
  
 
       </Container>
