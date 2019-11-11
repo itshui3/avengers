@@ -21,11 +21,11 @@ const Avgrs = (props) => {
 
   const [select, setSelect] = useState({});
   const { id } = props.match.params;
-
+  // another useEffect necessary to access useEffect obtained api data
   useEffect(() => {
       setSelect(props.avg.find(avg => avg.id == id));
   }, [id])
-
+  // Fallback in case api hasn't pulled through
   if(!select) {
     return <h3>Loading..</h3>
   }
@@ -37,9 +37,9 @@ const Avgrs = (props) => {
 function AvengersList() {
   const [avg, setAvg] = useState([]);
 
+  // assuming api
   useEffect(() => {
     setAvg(avengers);
-
   }, []);
 
   return (
@@ -77,7 +77,7 @@ function AvengersList() {
           </ButtonGroup>
         </ListGroup>
         <Route path='/avengers/:id' render={(props) => <Avgrs match={props.match} history={props.history} location={props.location} avg={avg} />} />
- 
+    {/* Pass useEffect-set state through render in Route */}
 
       </Container>
     </SJumbotron>
