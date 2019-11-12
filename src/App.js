@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react'; 
-import { Route, Link } from 'react-router-dom';
+import { Route, Link, NavLink } from 'react-router-dom';
 import { Navbar, NavItem, Button, ButtonGroup } from 'reactstrap';
 import Home from './components/Home';
 import AvengersList from './components/AvengersList';
@@ -12,10 +12,10 @@ function App() {
     <header>
       <Navbar>
       <NavItem>
-        <Link to='/'>Home</Link>
+        <NavLink exact to='/' activeClassName="bestNav">Home</NavLink>
       </NavItem>
       <NavItem>
-        <Link to='/avengers'>Avengers List</Link>
+        <NavLink to='/avengers' activeClassName="betterNav">Avengers List</NavLink>
 
       </NavItem>
 

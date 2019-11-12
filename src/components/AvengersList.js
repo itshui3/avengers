@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import {Jumbotron, Container, ListGroup, ListGroupItem, Button, ButtonGroup} from 'reactstrap';
-import {Route, Link} from 'react-router-dom';
+import {Route, Link, Switch} from 'react-router-dom';
 import Axios from 'axios';
 
 import AvengerButton from './AvengerButton';
 import AvengerCard from './AvengerCard';
+import Error from './Error';
 
 export default AvengersList;
 
@@ -76,9 +77,14 @@ function AvengersList() {
             <Button><Link to='/avengers/9'>Dr Strange</Link></Button>
           </ButtonGroup>
         </ListGroup>
-        <Route path='/avengers/:id' render={(props) => <Avgrs match={props.match} history={props.history} location={props.location} avg={avg} />} />
-    {/* Pass useEffect-set state through render in Route */}
+        
+        <Switch>
+          <Route path='/avengers/:id' render={(props) => <Avgrs {...props} avg={avg} />} />
+{/* Pass useEffect-set state through render in Route */}
+          <Route component={Error} />
 
+        </Switch>
+        
       </Container>
     </SJumbotron>
     <Container>
