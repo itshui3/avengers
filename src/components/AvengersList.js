@@ -8,10 +8,13 @@ import AvengerButton from './AvengerButton';
 import AvengerCard from './AvengerCard';
 import Error from './Error';
 
+// practicing with context API
+import {AvengerContext} from '../contexts/AvengerContext';
+
 export default AvengersList;
 
 const SJumbotron = styled(Jumbotron)`
-  background: ;
+
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -79,9 +82,14 @@ function AvengersList() {
         </ListGroup>
         
         <Switch>
-          <Route path='/avengers/:id' render={(props) => <Avgrs {...props} avg={avg} />} />
+          <AvengerContext.Provider value={avg}>
+            <Route path='/avengers/:id' component={AvengerCard} />
+          </AvengerContext.Provider>
 {/* Pass useEffect-set state through render in Route */}
           <Route component={Error} />
+            
+          
+
 
         </Switch>
         
